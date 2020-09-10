@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>User page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top justify-content-between">
+    <span class="navbar-brand"><span th:text="${user.getMail()} + ' with roles ' + ${user.getRolesString()}"></span></span>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    </ul>
+</nav>
+<div class="row">
+    <div class="col-md-2" style="margin-top: 60px">
+        <a href="/admin/adminPage" role="button" class="btn btn-link btn-block d-flex justify-content-start">
+            Admin
+        </a>
+        <a href="/admin/user" role="button" class="btn btn-primary btn-block d-flex justify-content-start">
+            User
+        </a>
+    </div>
+
+    <div class="col-md-10 bg-light text-dark" style="height:1000px; margin-top:60px">
+        <div class="container-fluid">
+            <h1 class="pt-3 ">User information-page</h1>
+            <div class="card">
+                <div class="card-header font-weight-bold">About User</div>
+                <div class="card-body">
+                    <table class="table table-striped ">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span th:text="${user.getId()}"></span></td>
+                            <td><span th:text="${user.getName()}"></span></td>
+                            <td><span th:text="${user.getLastName()}"></span></td>
+                            <td><span th:text="${user.getAge()}"></span></td>
+                            <td><span th:text="${user.getMail()}"></span></td>
+                            <td><span th:text="${user.getRolesString()}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
