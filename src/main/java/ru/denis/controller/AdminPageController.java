@@ -20,25 +20,18 @@ public class AdminPageController {
 
     @Autowired
     private UserService userService;
-    private Set<Role> allRoles = new HashSet<>();
-    {
-        allRoles.add(new Role("ROLE_ADMIN"));
-        allRoles.add(new Role("ROLE_USER"));
-    }
 
     @GetMapping(value = "/adminPage")
     public String adminPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByName(authentication.getName()).orElse(
-                new User("admin", "admin", (byte) 25, "admin", "admin", allRoles)
-        );
+        User user = (User) authentication.getPrincipal();
         model.addAttribute("users", userService.allUsers());
         model.addAttribute("user", user);
         return "admin/adminPage";
     }
 
     @PostMapping(value = "/edit")
-    public String saveUser(@RequestParam Long id, @RequestParam String firstName,
+    public String editUser(@RequestParam Long id, @RequestParam String firstName,
                            @RequestParam String lastName, @RequestParam String age,
                            @RequestParam String email, @RequestParam String password,
                            @RequestParam(required = false) Set<String> roleList) {
@@ -75,8 +68,9 @@ public class AdminPageController {
         userService.deleteUser(userService.findById(id));
         return "redirect:/admin/adminPage";
     }
+
     @GetMapping(value = "/user")
-    public String user(Model model) {
+    public String userPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByName(authentication.getName()).get();
         model.addAttribute("user", user);
