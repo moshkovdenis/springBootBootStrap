@@ -18,8 +18,11 @@ public class User implements UserDetails {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "surname")
-    private String surname;
+    @Column(name = "lastName")
+    private String lastName;
+
+    @Column(name = "age")
+    private byte age;
 
     @Column(name = "mail")
     private String mail;
@@ -34,11 +37,21 @@ public class User implements UserDetails {
 
     public User() {
     }
-    public User(String name, String surname, String mail, String password) {
+    public User(String name, String lastName, Byte age, String mail, String password) {
         this.name = name;
-        this.surname = surname;
+        this.lastName = lastName;
+        this.age = age;
         this.mail = mail;
         this.password = password;
+    }
+
+    public User(String name, String lastName, Byte age, String mail, String password, Set<Role> roles) {
+        this.name = name;
+        this.lastName = lastName;
+        this.age = age;
+        this.mail = mail;
+        this.password = password;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -53,16 +66,24 @@ public class User implements UserDetails {
         return name;
     }
 
+    public byte getAge() {
+        return age;
+    }
+
+    public void setAge(byte age) {
+        this.age = age;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String secondName) {
-        this.surname = secondName;
+    public void setLastName(String secondName) {
+        this.lastName = secondName;
     }
 
     public String getMail() {
@@ -83,6 +104,10 @@ public class User implements UserDetails {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public String getRolesString() {
+        return roles.size() == 2 ? "ADMIN USER" : "USER";
     }
 
     @Override

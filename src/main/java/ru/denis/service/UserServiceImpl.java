@@ -36,27 +36,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userDao.findById(id);
+    public User findById(Long id) {
+        return userDao.findUserById(id);
     }
 
 
     @Override
-    public void deleteUser(Long id) {
-        userDao.deleteById(id);
+    public void deleteUser(User user) {
+        userDao.delete(user);
     }
 
     @Override
-    public User findUserByName(String name) {
+    public Optional<User> findUserByName(String name) {
         return userDao.findUserByName(name);
     }
 
     @Override
-    public Role findRoleByName(String roleName) {
+    public Optional<Role> findRoleByName(String roleName) {
         return roleDao.findRoleByName(roleName);
     }
+
 }

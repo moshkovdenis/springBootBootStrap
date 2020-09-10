@@ -13,11 +13,11 @@ public interface UserService {
 
     void updateUser(User user);
 
-    Optional<User> findById(Long id);
+    User findById(Long id);
 
-    void deleteUser(Long id);
+    void deleteUser(User user);
 
-    User findUserByName(String name);
+    Optional<User> findUserByName(String name);
 
-    Role findRoleByName(String roleName);
+    Optional<Role> findRoleByName(String roleName);
 }
